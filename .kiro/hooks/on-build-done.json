@@ -1,0 +1,14 @@
+{
+  "name": "Build Done — Push to GitHub",
+  "version": "1.0.0",
+  "description": "เมื่อ Kiro build เสร็จและเขียน build-done.flag แล้ว ให้รัน Python 2 push ขึ้น GitHub",
+  "when": {
+    "type": "fileCreated",
+    "patterns": ["scripts/build-done.flag"]
+  },
+  "then": {
+    "type": "runCommand",
+    "command": "python C:/Users/User/Documents/GitHub/Axon/ui-generator-tools/push_to_github.py",
+    "timeout": 120
+  }
+}

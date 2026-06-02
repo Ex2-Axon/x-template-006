@@ -1,0 +1,13 @@
+{
+  "name": "Daily UI Context Ready",
+  "version": "1.0.0",
+  "description": "เมื่อ Python 1 สร้าง daily-context.json ให้ Kiro สร้าง UI ใหม่",
+  "when": {
+    "type": "fileCreated",
+    "patterns": ["scripts/daily-context.json"]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Read scripts/daily-context.json carefully. Based on the theme specification inside, completely redesign the UI by rewriting src/App.tsx, src/App.css, and src/index.css from scratch. Rules: (1) Keep all existing imports in App.tsx: useState, useEffect, useRef, reactLogo from './assets/react.svg', viteLogo from './assets/vite.svg', heroImg from './assets/hero.png', and './App.css'. (2) Keep CounterNum component with useRef/useEffect animation. (3) Keep counter button with onClick setCount handler. (4) Keep Documentation and Social sections with all existing hrefs and SVG icon references. (5) Do NOT use CSS custom properties like --var-name in inline style attributes. (6) Apply the theme palette, typography, layout, animation level, and component text from the JSON fully. Also update the version field in package.json to match the version in the JSON. After saving all files, run: pnpm build. If build succeeds, write the text 'done' to scripts/build-done.flag. If build fails with TypeScript errors, fix them and rebuild."
+  }
+}

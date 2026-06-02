@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Space Grotesk", system-ui, sans-serif;
+  --font-heading: "Space Grotesk", system-ui, sans-serif;
+
+  --color-background: #0f0f0f;
+  --color-surface: #1a1a1a;
+  --color-primary: #ffffff;
+  --color-accent: #f59e0b;
+  --color-text-main: #e5e5e5;
+  --color-muted: #404040;
+
+  --radius-card: 1.5rem;
+}
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-text-main);
+    font-family: var(--font-sans);
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-background);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-muted);
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-accent);
+  }
+}
+
+@layer utilities {
+  .bento-card {
+    @apply bg-surface border border-white/5 rounded-[--radius-card] p-6 relative overflow-hidden transition-all duration-300;
+    box-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.2);
+  }
+
+  .bento-card:hover {
+    @apply border-white/10 scale-[1.01];
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
+  }
+
+  .glass-effect {
+    @apply backdrop-blur-md bg-white/5 border border-white/10;
+  }
+
+  .accent-glow {
+    @apply relative;
+  }
+
+  .accent-glow::after {
+    content: '';
+    @apply absolute inset-0 opacity-0 transition-opacity duration-500 rounded-[--radius-card] pointer-events-none;
+    background: radial-gradient(600px circle at var(--x) var(--y), rgba(245, 158, 11, 0.1), transparent 40%);
+  }
+
+  .bento-card:hover .accent-glow::after {
+    @apply opacity-100;
+  }
+}
