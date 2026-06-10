@@ -1,9 +1,6 @@
 name: Screenshot & Notify
 
 on:
-
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
   workflow_run:
     workflows: ["Deploy to GitHub Pages"]
     types:
@@ -15,12 +12,8 @@ permissions:
 jobs:
   screenshot:
     name: Screenshot deployed site
-    runs-on:
-
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true' ubuntu-latest
+    runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
-
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -31,10 +24,7 @@ env:
       - name: Setup Node.js
         uses: actions/setup-node@v5
         with:
-          node-version:
-
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true' '22'
+          node-version: '24'
 
       - name: Install Playwright
         run: |
@@ -86,8 +76,8 @@ env:
       - name: Read package info
         id: pkg
         run: |
-          echo "version=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
-          echo "app_name=$(node -p "require('./package.json').name")" >> $GITHUB_OUTPUT
+          echo "version=$(node -p \"require('./package.json').version\")" >> $GITHUB_OUTPUT
+          echo "app_name=$(node -p \"require('./package.json').name\")" >> $GITHUB_OUTPUT
 
       - name: Get commit info
         id: commit

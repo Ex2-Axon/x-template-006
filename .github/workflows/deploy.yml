@@ -1,14 +1,10 @@
 name: Deploy to GitHub Pages
 
 on:
-
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
   push:
     branches:
       - main
       - master
-
   workflow_dispatch:
 
 permissions:
@@ -23,11 +19,7 @@ concurrency:
 jobs:
   build:
     name: Build
-    runs-on:
-
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true' ubuntu-latest
-
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -35,18 +27,12 @@ env:
       - name: Setup Node.js
         uses: actions/setup-node@v5
         with:
-          node-version:
-
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true' '22'
+          node-version: '24'
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v3
+        uses: pnpm/action-setup@v5
         with:
-          version:
-
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true' latest
+          version: latest
 
       - name: Install dependencies
         run: |
@@ -56,21 +42,17 @@ env:
         run: pnpm build
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: ./dist
 
   deploy:
     name: Deploy
     needs: build
-    runs-on:
-
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true' ubuntu-latest
+    runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
